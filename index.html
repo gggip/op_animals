@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>海洋公園打卡App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f9f5;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #4cafb3;
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      text-align: center;
+      padding: 15px;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    }
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .card h3 {
+      margin: 10px 0;
+      color: #333333;
+    }
+    .card p {
+      margin: 5px 0;
+      color: #777777;
+    }
+    body { font-family: Arial, sans-serif; text-align: center; background: #f4f4f4; padding: 20px; }
+    .button {
+      padding: 10px 20px;
+      margin: 20px;
+      background: #4cafb3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .button:hover {
+      background: #3a9d91;
+      transform: scale(1.05);
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>探索海洋公園</h1>
+
+	  <!-- 已收集動物按鈕 -->
+  <button class="button" onclick="goToCollectedAnimals()">已收集動物</button>
+
+    <div class="grid">
+      <!-- 亞洲動物天地 -->
+      <div class="card" onclick="navigateTo('亞洲動物天地')">
+        <img src="https://media.oceanpark.com.hk/files/s3fs-public/giant_panda_listing.jpg" alt="亞洲動物天地">
+        <h3>亞洲動物天地</h3>
+        <p>探索大熊貓和更多奇珍動物！</p>
+      </div>
+      <!-- 海洋天地 -->
+      <div class="card" onclick="navigateTo('海洋天地')">
+        <img src="https://media.oceanpark.com.hk/files/s3fs-public/dolphin_listing.jpg" alt="海洋天地">
+        <h3>海洋天地</h3>
+        <p>發現北極狐和冰雪奇景。</p>
+      </div>
+      <!-- 冰極天地 -->
+      <div class="card" onclick="navigateTo('冰極天地')">
+	<a href="antarctica4.html" style="text-decoration: none; color: inherit;">
+        <img src="https://media.oceanpark.com.hk/files/s3fs-public/king_penguin_listing.jpg" alt="冰極天地">
+        <h3>冰極天地</h3>
+        <p>與企鵝家族共度美好時光！</p>
+      </div>
+      <!-- 熱帶雨林天地 -->
+      <div class="card" onclick="navigateTo('熱帶雨林天地')">
+        <img src="https://media.oceanpark.com.hk/files/s3fs-public/aldabra-giant-tortoise-1.jpg" alt="熱帶雨林天地">
+        <h3>熱帶雨林天地</h3>
+        <p>沉浸在雨林的奇妙世界。</p>
+      </div>
+    </div>
+  </div>
+  <script>
+// 跳轉到「全部已收集動物」頁面
+  function goToCollectedAnimals() {
+    window.location.href = "allcard2.html";
+  }
+
+
+  </script>
+</body>
+</html>
