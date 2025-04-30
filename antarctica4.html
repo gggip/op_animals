@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>冰極天地</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f9f5;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #4cafb3;
+      margin-bottom: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      text-align: center;
+      padding: 15px;
+      transition: transform 0.2s, box-shadow 0.2s, filter 0.3s;
+    }
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+      transition: filter 0.3s;
+    }
+    .card.locked img {
+      filter: grayscale(100%);
+    }
+    .card.locked {
+      cursor: not-allowed;
+    }
+    .card h3 {
+      margin: 10px 0;
+      color: #333333;
+    }
+    .card p {
+      margin: 5px 0;
+      color: #777777;
+    }
+    .card button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4cafb3;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .card button:hover {
+      background-color: #3a9a98;
+    }
+    .clear-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ff4d4d;
+      color: white;
+      border: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+margin-bottom: 20px;
+    }
+    .clear-button:hover {
+      background-color: #e60000;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+    .modal-content {
+      background: white;
+      color: black;
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 500px;
+      width: 90%;
+      text-align: left;
+    }
+    .modal img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .modal table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    .modal table th, .modal table td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    .modal table th {
+      background-color: #f7f7f7;
+    }
+    .modal button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4cafb3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .modal button:hover {
+      background-color: #3a9a98;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>冰極天地</h1>
+    <button class="clear-button" onclick="history.back()">返回上一頁</button>
+ <button class="clear-button" onclick="clearAllRecords() ">clear</button>
+    <div class="grid">
+      <div class="card locked" data-id="gentoo_penguin">
+        <img src="https://media.oceanpark.com.hk/files/s3fs-public/Gentoo%20Penguin_2_v2.jpg" alt="巴布亞企鵝">
+        <h3>巴布亞企鵝</h3>
+         <button onclick="markCard(this)","unlockAnimals('gentoo')">收集</button>
+      </div>
+      <div class="card locked" data-id="king_penguin">
+        <img src="https://media.oceanpark.com.hk/files/s3fs-public/King%20Penguin_1_v2.jpg" alt="國王企鵝">
+        <h3>國王企鵝</h3>
+          <button onclick="markCard(this)">收集</button>
+      </div>
+	<div class="card locked" data-id="Eudyptes_hrysocome">
+        <img src="https://media.oceanpark.com.hk/files/s3fs-public/Southern%20Rockhopper%20Penguin_1_v2.jpg" alt="南跳岩企鵝">
+        <h3>南跳岩企鵝</h3>
+	<button onclick="markCard(this)">收集</button>
+      </div>
+	<div class="card locked" data-id="Vulpes_lagopus">
+        <img src="https://media.oceanpark.com.hk/files/s3fs-public/Arctic%20Fox_2_2.jpg" alt="北極狐">
+        <h3>北極狐</h3>
+        <button onclick="markCard(this)">收集</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <img src="" alt="動物圖片" id="modal-img">
+      <h2 id="modal-title"></h2>
+      <table>
+        <tr>
+          <th>學名</th>
+          <td id="modal-scientific-name"></td>
+        </tr>
+        <tr>
+          <th>別名</th>
+          <td id="modal-nickname"></td>
+        </tr>
+        <tr>
+          <th>分類</th>
+          <td id="modal-classification"></td>
+        </tr>
+        <tr>
+          <th>分布地帶</th>
+          <td id="modal-habitat"></td>
+        </tr>
+        <tr>
+          <th>有趣資料</th>
+          <td id="modal-fact"></td>
+        </tr>
+        <tr>
+          <th>瀕臨絕種情況</th>
+          <td id="modal-status"></td>
+        </tr>
+      </table>
+      <button onclick="closeModal()">關閉</button>
+    </div>
+  </div>
+
+  <script>
+    const animalData = {
+      gentoo_penguin: {
+        name: "巴布亞企鵝",
+        img: "https://media.oceanpark.com.hk/files/s3fs-public/Gentoo%20Penguin_2_v2.jpg",
+        scientificName: "Pygoscelis papua",
+        nickname: "紳士企鵝",
+        classification: "鳥綱 → 企鵝目 → 企鵝科",
+        habitat: "南極半島及周邊島嶼",
+        fact: "巴布亞企鵝是游泳速度最快的企鵝之一，能達到每小時 36 公里。",
+        status: "近危（Near Threatened）"
+      },
+      king_penguin: {
+        name: "國王企鵝",
+        img: "https://media.oceanpark.com.hk/files/s3fs-public/King%20Penguin_1_v2.jpg",
+        scientificName: "Aptenodytes patagonicus",
+        nickname: "大企鵝",
+        classification: "鳥綱 → 企鵝目 → 企鵝科",
+        habitat: "南大西洋的亞南極島嶼",
+        fact: "國王企鵝是第二大的企鵝，以鮮豔的橙黃色喉部羽毛聞名。",
+        status: "無危（Least Concern）"
+      },
+      Eudyptes_hrysocome: {
+       name: "南跳岩企鵝",
+	img: "https://media.oceanpark.com.hk/files/s3fs-public/Southern%20Rockhopper%20Penguin_1_v2.jpg",
+	scientificName: "Eudyptes chrysocome",
+	nickname: "跳岩企鵝",
+	classification: "鳥綱 → 企鵝目 → 企鵝科",
+	habitat: "南大西洋和南印度洋的亞南極島嶼",
+	fact: "南跳岩企鵝以其鮮明的黃色眉毛和跳躍岩石的能力而聞名。",
+	status: "近危（Near Threatened）"
+    },
+     Vulpes_lagopus: {
+        name: "北極狐",
+	img: "https://media.oceanpark.com.hk/files/s3fs-public/Arctic%20Fox_2_2.jpg",
+	scientificName: "Vulpes lagopus",
+	nickname: "白狐",
+	classification: "哺乳綱 → 食肉目 → 犬科",
+	habitat: "北極地區的苔原和冰原",
+	fact: "北極狐以其厚實的毛皮適應極寒環境，且毛色會隨季節變化。",
+	status: "無危（Least Concern）"
+      }
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".card").forEach(card => {
+        const cardId = card.getAttribute("data-id");
+        const status = localStorage.getItem(`card-${cardId}`) || "未收集";
+
+        if (status === "已收集") unlockCard(card);
+      });
+    });
+
+    function markCard(button) {
+      const card = button.parentElement;
+      const cardId = card.getAttribute("data-id");
+
+      localStorage.setItem(`card-${cardId}`, "已收集");
+      unlockCard(card);
+
+      button.textContent = "已收集";
+      button.disabled = true;
+    }
+
+    function unlockCard(card) {
+      card.classList.remove("locked");
+
+      card.onclick = () => {
+        const cardId = card.getAttribute("data-id");
+        const data = animalData[cardId];
+
+        const modal = document.getElementById("modal");
+        document.getElementById("modal-img").src = data.img;
+        document.getElementById("modal-title").textContent = data.name;
+        document.getElementById("modal-scientific-name").textContent = data.scientificName;
+        document.getElementById("modal-nickname").textContent = data.nickname;
+        document.getElementById("modal-classification").textContent = data.classification;
+        document.getElementById("modal-habitat").textContent = data.habitat;
+        document.getElementById("modal-fact").textContent = data.fact;
+        document.getElementById("modal-status").textContent = data.status;
+
+        modal.style.display = "flex";
+      };
+    }
+    // 解鎖動物並保存到 localStorage
+    function unlockAnimal(animalId) {
+      // 從 localStorage 獲取已解鎖的動物
+      let unlockedAnimals = JSON.parse(localStorage.getItem('unlockedAnimals')) || [];
+
+      // 如果尚未解鎖，添加到列表並保存
+      if (!unlockedAnimals.includes(animalId)) {
+        unlockedAnimals.push(animalId);
+        localStorage.setItem('unlockedAnimals', JSON.stringify(unlockedAnimals));
+        alert(`${animalId} 已成功解鎖！`);
+      } else {
+        alert(`${animalId} 已經解鎖過了！`);
+      }
+    }
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+
+    function clearAllRecords() {
+      localStorage.clear();
+      document.querySelectorAll(".card").forEach(card => {
+        card.classList.add("locked");
+        card.onclick = null;
+        const button = card.querySelector("button");
+        button.textContent = "收集";
+        button.disabled = false;
+      });
+      alert("所有收集紀錄已清除！");
+    }
+  </script>
+</body>
+</html>
