@@ -100,11 +100,12 @@ margin-bottom: 20px;
       color: black;
       border-radius: 15px;
       padding: 20px;
-      width: 80%;
+     
       text-align: left;
+max-height: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
  max-width: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
   overflow-y: auto; /* 垂直方向滾動條 */
-  overflow-x: hidden; /* 隱藏水平滾動條 */
+  overflow-x: auto; /* 隱藏水平滾動條 */
   scrollbar-width: thin; /* Firefox: 設置滾動條寬度 */
   scrollbar-color: transparent transparent; /* Firefox: 隱藏滾動條顏色 */
 }
@@ -129,8 +130,7 @@ margin-bottom: 20px;
     .modal img {
      max-width: 70%;
       border-radius: 10px;
-object-fit: contain; /* 確保圖片比例不變，且內容完全顯示 */
-  display: block; /* 移除圖片周圍的多餘空白（如 inline 空間） */
+object-fit: contain; /* 確保圖片比例不變，且內容完全顯示 *
   margin: 0 auto; /* 圖片居中 */
     }
     .modal table {
