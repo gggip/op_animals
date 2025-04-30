@@ -128,9 +128,11 @@ margin-bottom: 20px;
 }
     }
     .modal img {
-      width: 70vh;
+     max-height: 80vh;;
       border-radius: 10px;
-      margin-bottom: 20px;
+object-fit: contain; /* 確保圖片比例不變，且內容完全顯示 */
+  display: block; /* 移除圖片周圍的多餘空白（如 inline 空間） */
+  margin: 0 auto; /* 圖片居中 */
     }
     .modal table {
       width: 80%;
