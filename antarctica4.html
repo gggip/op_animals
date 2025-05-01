@@ -183,7 +183,7 @@ max-height: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
     }
 
 	  
-	  .modal button {
+     .modal button {
       padding: 10px 20px;
       font-size: 14px;
       background-color: #4cafb3;
@@ -256,7 +256,7 @@ max-height: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
           <td id="modal-status"></td>
         </tr>
       </table>
-      <button onclick="closeModal()">關閉</button>
+     
      <!-- 拍照功能 -->
       <div class="camera-container">
         <input type="file" accept="image/*" capture="environment" id="cameraInput" style="display: none;" />
@@ -267,7 +267,9 @@ max-height: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
       <div>
         <h3>拍攝的照片：</h3>
         <img id="photoPreview" class="photo-preview" src="" alt="你的拍攝照片將顯示在此處">
-      </div>
+</div>
+<button onclick="closeModal()">關閉</button>      
+</div>
     </div>
   </div>
     </div>
@@ -392,10 +394,7 @@ max-height: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
       document.getElementById('myModal').classList.add('active');
     }
 
-    // 關閉 Modal
-    function closeModal() {
-      document.getElementById('myModal').classList.remove('active');
-    }
+
 
     // 觸發相機拍照
     function triggerCamera() {
@@ -411,6 +410,10 @@ max-height: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
         photoPreview.src = URL.createObjectURL(file); // 生成圖片 URL 並顯示照片
         photoPreview.alt = "用戶拍攝的照片";
       }
+    // 關閉 Modal
+    function closeModal() {
+      document.getElementById('myModal').classList.remove('active');
+    }
     });
   </script>
 </body>
