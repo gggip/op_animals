@@ -277,7 +277,8 @@ max-height: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
   </div>
 
   <script>
-    const animalData = {
+   const animalPhotos = {}; // 用於存儲每個動物的照片
+	  const animalData = {
       gentoo_penguin: {
         name: "巴布亞企鵝",
         img: "https://media.oceanpark.com.hk/files/s3fs-public/Gentoo%20Penguin_2_v2.jpg",
@@ -406,8 +407,7 @@ max-height: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
     // 當用戶拍攝照片後顯示預覽
     document.getElementById('cameraInput').addEventListener('change', function(event) {
       const file = event.target.files[0];
-      if (file) {
-            const photoPreview = document.getElementById("photoPreview");
+      const photoPreview = document.getElementById("photoPreview");
     if (animalPhotos[cardId]) {
       photoPreview.src = animalPhotos[cardId];
       photoPreview.alt = `${data.name} 的照片`;
