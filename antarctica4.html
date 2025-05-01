@@ -407,14 +407,21 @@ max-height: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
     // 當用戶拍攝照片後顯示預覽
     document.getElementById('cameraInput').addEventListener('change', function(event) {
       const file = event.target.files[0];
-      const photoPreview = document.getElementById("photoPreview");
-    if (animalPhotos[cardId]) {
-      photoPreview.src = animalPhotos[cardId];
-      photoPreview.alt = `${data.name} 的照片`;
-    } else {
-      photoPreview.src = "";
-      photoPreview.alt = "你的拍攝照片將顯示在此處";
+       if (file) {
+    const photoPreview = document.getElementById("photoPreview");
+    const currentAnimalId = getCurrentAnimalId(); // 獲取當前顯示的動物 ID
+
+    if (currentAnimalId) {
+      const photoURL = URL.createObjectURL(file); // 生成圖片 URL
+
+      // 保存照片到對應動物
+      animalPhotos[currentAnimalId] = photoURL;
+
+      // 更新照片預覽
+      photoPreview.src = photoURL;
+      photoPreview.alt = `${animalData[currentAnimalId].name} 的照片`;
     }
+  }
     // 關閉 Modal
     function closeModal() {
       document.getElementById('myModal').classList.remove('active');
