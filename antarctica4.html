@@ -372,6 +372,10 @@ max-height: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
       modal.style.display = "flex";
     };
   }
+// 打開 Modal
+    function openModal() {
+      document.getElementById('myModal').classList.add('active');
+    }
 
   // 觸發相機拍照
   function triggerCamera() {
@@ -399,10 +403,6 @@ max-height: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
     }
   });
 
-  // 關閉模態框
-  function closeModal() {
-    document.getElementById("modal").style.display = "none";
-  }
 
   // 獲取當前打開模態框的動物 ID
   function getCurrentAnimalId() {
