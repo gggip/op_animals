@@ -358,17 +358,6 @@ max-height: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
     document.getElementById("modal-habitat").textContent = data.habitat;
     document.getElementById("modal-fact").textContent = data.fact;
     document.getElementById("modal-status").textContent = data.status;
-
-    // 如果該動物已有照片，顯示照片；否則顯示空白
-    const photoPreview = document.getElementById("photoPreview");
-    if (animalPhotos[cardId]) {
-      photoPreview.src = animalPhotos[cardId];
-      photoPreview.alt = `${data.name} 的照片`;
-    } else {
-      photoPreview.src = "";
-      photoPreview.alt = "你的拍攝照片將顯示在此處";
-    }
-
     modal.style.display = "flex"; // 打開模態框
   };
     }
