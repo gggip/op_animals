@@ -82,7 +82,7 @@ margin-bottom: 20px;
     .clear-button:hover {
       background-color: #e60000;
     }
-    .modal {
+   .modal {
       display: none;
       position: fixed;
       top: 0;
@@ -127,6 +127,42 @@ max-height: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
   background-color: transparent; /* 滾動條背景隱藏 */
 }
     }
+
+/* 拍照按鈕 */
+    .capture-button {
+      margin: 20px 0;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .capture-button:hover {
+      background-color: #45a049;
+    }
+
+    /* 照片預覽樣式 */
+    .photo-preview {
+      margin-top: 20px;
+      max-width: 100%;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+    }
+
+    /* 關閉按鈕樣式 */
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
     .modal img {
      max-width: 50%;
       border-radius: 10px;
@@ -145,7 +181,9 @@ max-height: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
     .modal table th {
       background-color: #f7f7f7;
     }
-    .modal button {
+
+	  
+	  .modal button {
       padding: 10px 20px;
       font-size: 14px;
       background-color: #4cafb3;
@@ -219,7 +257,21 @@ max-height: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
         </tr>
       </table>
       <button onclick="closeModal()">關閉</button>
+     <!-- 拍照功能 -->
+      <div class="camera-container">
+        <input type="file" accept="image/*" capture="environment" id="cameraInput" style="display: none;" />
+        <button class="capture-button" onclick="triggerCamera()">拍攝動物照片</button>
+      </div>
+
+      <!-- 照片預覽 -->
+      <div>
+        <h3>拍攝的照片：</h3>
+        <img id="photoPreview" class="photo-preview" src="" alt="你的拍攝照片將顯示在此處">
+      </div>
     </div>
+  </div>
+    </div>
+ 
   </div>
 
   <script>
@@ -335,6 +387,31 @@ max-height: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
       });
       alert("所有收集紀錄已清除！");
     }
+// 打開 Modal
+    function openModal() {
+      document.getElementById('myModal').classList.add('active');
+    }
+
+    // 關閉 Modal
+    function closeModal() {
+      document.getElementById('myModal').classList.remove('active');
+    }
+
+    // 觸發相機拍照
+    function triggerCamera() {
+      const cameraInput = document.getElementById('cameraInput');
+      cameraInput.click(); // 模擬點擊 input
+    }
+
+    // 當用戶拍攝照片後顯示預覽
+    document.getElementById('cameraInput').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const photoPreview = document.getElementById('photoPreview');
+        photoPreview.src = URL.createObjectURL(file); // 生成圖片 URL 並顯示照片
+        photoPreview.alt = "用戶拍攝的照片";
+      }
+    });
   </script>
 </body>
 </html>
