@@ -277,8 +277,7 @@ max-height: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
   </div>
 
   <script>
-   const animalPhotos = {}; // 用於存儲每個動物的照片
-	  const animalData = {
+    const animalData = {
       gentoo_penguin: {
         name: "巴布亞企鵝",
         img: "https://media.oceanpark.com.hk/files/s3fs-public/Gentoo%20Penguin_2_v2.jpg",
@@ -342,35 +341,25 @@ max-height: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
     }
 
     function unlockCard(card) {
-  card.classList.remove("locked"); // 解鎖卡片
+      card.classList.remove("locked");
 
-  // 點擊卡片時打開模態框
-  card.onclick = () => {
-    const cardId = card.getAttribute("data-id"); // 獲取卡片的 ID
-    const data = animalData[cardId]; // 從 animalData 中獲取該動物的數據
+      card.onclick = () => {
+        const cardId = card.getAttribute("data-id");
+        const data = animalData[cardId];
 
-    // 確保模態框內的內容正確更新
-    const modal = document.getElementById("modal");
-    document.getElementById("modal-img").src = data.img;
-    document.getElementById("modal-title").textContent = data.name;
-    document.getElementById("modal-scientific-name").textContent = data.scientificName;
-    document.getElementById("modal-nickname").textContent = data.nickname;
-    document.getElementById("modal-classification").textContent = data.classification;
-    document.getElementById("modal-habitat").textContent = data.habitat;
-    document.getElementById("modal-fact").textContent = data.fact;
-    document.getElementById("modal-status").textContent = data.status;
-    modal.style.display = "flex"; // 打開模態框
-  };	    
+        const modal = document.getElementById("modal");
+        document.getElementById("modal-img").src = data.img;
+        document.getElementById("modal-title").textContent = data.name;
+        document.getElementById("modal-scientific-name").textContent = data.scientificName;
+        document.getElementById("modal-nickname").textContent = data.nickname;
+        document.getElementById("modal-classification").textContent = data.classification;
+        document.getElementById("modal-habitat").textContent = data.habitat;
+        document.getElementById("modal-fact").textContent = data.fact;
+        document.getElementById("modal-status").textContent = data.status;
+
+        modal.style.display = "flex";
+      };
     }
-	     // 如果該動物已有照片，顯示照片；否則顯示空白
-    const photoPreview = document.getElementById("photoPreview");
-    if (animalPhotos[cardId]) {
-      photoPreview.src = animalPhotos[cardId];
-      photoPreview.alt = `${data.name} 的照片`;
-    } else {
-      photoPreview.src = "";
-      photoPreview.alt = "你的拍攝照片將顯示在此處";
-    } 
     // 解鎖動物並保存到 localStorage
     function unlockAnimal(animalId) {
       // 從 localStorage 獲取已解鎖的動物
@@ -416,21 +405,11 @@ max-height: 80vh; /* 限制 modal 的最大高度為視窗的 80% */
     // 當用戶拍攝照片後顯示預覽
     document.getElementById('cameraInput').addEventListener('change', function(event) {
       const file = event.target.files[0];
-       if (file) {
-    const photoPreview = document.getElementById("photoPreview");
-    const currentAnimalId = getCurrentAnimalId(); // 獲取當前顯示的動物 ID
-
-    if (currentAnimalId) {
-      const photoURL = URL.createObjectURL(file); // 生成圖片 URL
-
-      // 保存照片到對應動物
-      animalPhotos[currentAnimalId] = photoURL;
-
-      // 更新照片預覽
-      photoPreview.src = photoURL;
-      photoPreview.alt = `${animalData[currentAnimalId].name} 的照片`;
-    }
-  }
+      if (file) {
+        const photoPreview = document.getElementById('photoPreview');
+        photoPreview.src = URL.createObjectURL(file); // 生成圖片 URL 並顯示照片
+        photoPreview.alt = "用戶拍攝的照片";
+      }
     // 關閉 Modal
     function closeModal() {
       document.getElementById('myModal').classList.remove('active');
